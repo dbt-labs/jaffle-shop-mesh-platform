@@ -12,6 +12,9 @@ seed-paths: ["jaffle-data"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
+dbt-cloud:
+  project-id: 282964 # Put your project id here
+
 target-path: "target"
 clean-targets:
   - "target"
