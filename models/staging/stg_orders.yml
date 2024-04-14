@@ -18,8 +18,8 @@ models:
       - name: customer_id
         data_type: text
       - name: order_total
-        data_type: number
+        data_type: number(38, 2)
       - name: tax_paid
-        data_type: number
+        data_type: number(38, 2)
       - name: ordered_at
         data_type: timestamp_ntz

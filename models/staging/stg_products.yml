@@ -20,7 +20,7 @@ models:
       - name: product_description
         data_type: text
       - name: product_price
-        data_type: number
+        data_type: number(38,2)
       - name: is_food_item
         data_type: boolean
       - name: is_drink_item
