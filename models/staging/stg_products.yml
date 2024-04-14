@@ -9,7 +9,7 @@ models:
     columns:
       - name: product_id
         description: The unique key for each product.
-        tests:
+        data_tests:
           - not_null
           - unique
         data_type: text
