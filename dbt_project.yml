@@ -29,3 +29,5 @@ models:
   jaffle_shop_mesh_platform:
     staging:
       +materialized: view
+    metricflow_time_spine:
+    +materialized: table

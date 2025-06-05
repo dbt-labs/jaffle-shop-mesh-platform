@@ -1,0 +1,61 @@
+semantic_models:
+  - name: orders
+    description: Order data semantic model for business metrics
+    model: ref('stg_orders')
+    defaults:
+      agg_time_dimension: ordered_at
+    
+    # Primary entity - required for semantic models
+    entities:
+      - name: order
+        type: primary
+        expr: order_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+      - name: location
+        type: foreign
+        expr: location_id
+    
+    dimensions:
+      - name: order_id
+        type: categorical
+        description: Unique identifier for each order
+      - name: location_id
+        type: categorical
+        description: Location where the order was placed
+      - name: customer_id
+        type: categorical
+        description: Customer who placed the order
+      - name: ordered_at
+        type: time
+        type_params:
+          time_granularity: day
+        description: Date and time when the order was placed
+    
+    measures:
+      - name: order_total
+        agg: sum
+        description: Total order amount before tax
+      - name: tax_paid
+        agg: sum
+        description: Total tax amount paid
+      - name: order_count
+        agg: count
+        description: Count of orders
+        expr: order_id
+
+metrics:
+  - name: total_revenue
+    description: Total revenue from all orders
+    type: simple
+    label: Total Revenue
+    type_params:
+      measure: order_total
+    
+  - name: order_count_metric
+    description: Total number of orders
+    type: simple  
+    label: Order Count
+    type_params:
+      measure: order_count
