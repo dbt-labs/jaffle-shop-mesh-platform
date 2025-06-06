@@ -4,7 +4,7 @@ duckdb:
       type: duckdb
       path: ./jaffle_shop.duckdb
       database: jaffle_shop
-      schema: analytics
+      schema: DAVIDE_JAFFLE_SHOP
       threads: 4
   target: dev
 
@@ -16,7 +16,7 @@ snowflake:
       account: "{{ env_var('SNOWFLAKE_SANDBOX_ACCOUNT') }}"
       user: "{{ env_var('SNOWFLAKE_SANDBOX_USER') }}"
       authenticator: externalbrowser
-      database: analytics
-      warehouse: transforming
-      schema: dbt_winnie
+      database: DAVIDE_DBT
+      warehouse: TRANSFORMING
+      schema: DAVIDE_JAFFLE_SHOP
       threads: 8
