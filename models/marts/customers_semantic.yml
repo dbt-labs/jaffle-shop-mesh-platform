@@ -1,0 +1,113 @@
+semantic_models:
+  - name: customers
+    description: Customer data semantic model for business metrics
+    model: ref('stg_customers')
+    defaults:
+      agg_time_dimension: customer_since
+
+    # Primary entity
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_id
+
+    dimensions:
+      - name: customer_id
+        type: categorical
+        description: Unique identifier for each customer
+      - name: customer_name
+        type: categorical
+        description: Full name of the customer
+      - name: customer_type
+        type: categorical
+        description: Type of customer (Business, Individual, or Government)
+      - name: customer_tier
+        type: categorical
+        description: Tier level of the customer (Bronze, Silver, Gold, or Platinum)
+      - name: age_group
+        type: categorical
+        description: Age range of the customer
+      - name: is_active
+        type: categorical
+        description: Whether the customer is currently active
+      - name: analysis_date
+        type: time
+        description: Query execution time for aggregation context
+        expr: "current_date()"
+        type_params:
+          time_granularity: day
+
+    measures:
+      - name: customer_count
+        agg: count
+        description: Count of customers
+        expr: customer_id
+      - name: active_customer_count
+        agg: count
+        description: Count of active customers
+        expr: case when is_active = true then customer_id end
+      - name: inactive_customer_count
+        agg: count
+        description: Count of inactive customers
+        expr: case when is_active = false then customer_id end
+      - name: avg_lifetime_value
+        agg: average
+        description: Average lifetime value of customers
+        expr: lifetime_value
+      - name: total_lifetime_value
+        agg: sum
+        description: Total lifetime value across all customers
+        expr: lifetime_value
+      - name: premium_customer_count
+        agg: count
+        description: Count of gold and platinum tier customers
+        expr: case when customer_tier in ('Gold', 'Platinum') then customer_id end
+      - name: business_customer_count
+        agg: count
+        description: Count of business customers
+        expr: case when customer_type = 'Business' then customer_id end
+      - name: individual_customer_count
+        agg: count
+        description: Count of individual customers
+        expr: case when customer_type = 'Individual' then customer_id end
+      - name: government_customer_count
+        agg: count
+        description: Count of government customers
+        expr: case when customer_type = 'Government' then customer_id end
+      - name: high_value_customer_count
+        agg: count
+        description: Count of customers with lifetime value above 1000
+        expr: case when lifetime_value > 1000 then customer_id end
+      - name: platinum_lifetime_value
+        agg: sum
+        description: Total lifetime value of platinum tier customers
+        expr: case when customer_tier = 'Platinum' then lifetime_value else 0 end
+
+metrics:
+  - name: total_customers
+    description: Total number of customers
+    type: simple
+    label: Customer Count
+    type_params:
+      measure: customer_count
+
+  - name: active_customers
+    description: Total number of active customers
+    type: simple
+    label: Active Customers
+    type_params:
+      measure: active_customer_count
+
+  - name: average_customer_value
+    description: Average lifetime value per customer
+    type: simple
+    label: Average Customer Value
+    type_params:
+      measure: avg_lifetime_value
+
+  - name: premium_customers
+    description: Count of premium tier customers (Gold and Platinum)
+    type: simple
+    label: Premium Customers
+    type_params:
+      measure: premium_customer_count   
