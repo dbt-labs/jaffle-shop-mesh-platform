@@ -27,7 +27,7 @@ models:
         data_type: text
       - name: lifetime_value
         description: Total monetary value of the customer over their lifetime.
-        data_type: numeric
+        data_type: float
       - name: is_active
         description: Flag indicating if the customer is currently active.
         data_type: boolean
