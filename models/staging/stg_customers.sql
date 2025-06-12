@@ -14,7 +14,18 @@ renamed as (
         id as customer_id,
 
         ---------- text
-        name as customer_name
+        name as customer_name,
+        
+        ---------- categorizations
+        customer_type,
+        customer_tier,
+        age_group,
+        
+        ---------- metrics
+        lifetime_value,
+        
+        ---------- booleans
+        is_active
 
     from source
 

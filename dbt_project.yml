@@ -28,6 +28,6 @@ seeds:
 models:
   jaffle_shop_mesh_platform:
     staging:
-      +materialized: view
+      +materialized: table
     metricflow_time_spine:
     +materialized: table

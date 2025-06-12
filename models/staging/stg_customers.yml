@@ -14,4 +14,20 @@ models:
           - unique
         data_type: text
       - name: customer_name
+        description: Full name of the customer.
         data_type: text
+      - name: customer_type
+        description: Type of customer (Business, Individual, or Government).
+        data_type: text
+      - name: customer_tier
+        description: Tier level of the customer (Bronze, Silver, Gold, or Platinum).
+        data_type: text
+      - name: age_group
+        description: Age range of the customer.
+        data_type: text
+      - name: lifetime_value
+        description: Total monetary value of the customer over their lifetime.
+        data_type: numeric
+      - name: is_active
+        description: Flag indicating if the customer is currently active.
+        data_type: boolean
